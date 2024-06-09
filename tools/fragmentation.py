@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
+# TODO: parcial fragmentation / Batch split
 
 def Fragmentation(path, pixels):
     image = plt.imread(path)
@@ -14,5 +14,6 @@ def Fragmentation(path, pixels):
             chunks.append(image[pixels*w:pixels*(w+1), pixels*h:pixels*(h+1)])
     
     return chunks
+
 
     
