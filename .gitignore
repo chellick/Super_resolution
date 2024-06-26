@@ -156,3 +156,7 @@ images/
 datasets/
 
 tgbot/TOKEN.txt
+
+super_resolution/settings.py
+
+.settings.py

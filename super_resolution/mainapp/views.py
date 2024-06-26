@@ -18,7 +18,8 @@ def upload_image(request):
         return redirect('upload_image/')
     return HttpResponse('None')
 
-def get_image(request):
+
+def download_image(request):
     form = SRImagesForm()
     return render(request, '', {    # TODO: template 
         'form': form

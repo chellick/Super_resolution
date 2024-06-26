@@ -24,7 +24,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('mainapp/', include('mainapp.urls')),
+    path('upload/', views.upload_image),
+    path('download/', views.download_image)
 ]
 
 if settings.DEBUG:
