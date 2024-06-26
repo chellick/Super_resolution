@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from .forms import SRImagesForm
 from .models import SRImages
-
+from django.template.loader import render_to_string
+from django.shortcuts import render
 
 # Create your views here.
+
+def index(request):
+    return render(request, 'index.html')
 
 
 def say_hello(request):

@@ -23,9 +23,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    
     path('admin/', admin.site.urls),
+    path('index/', views.index),
     path('upload/', views.upload_image),
     path('download/', views.download_image)
+    
 ]
 
 if settings.DEBUG:
