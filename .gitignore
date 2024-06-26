@@ -157,6 +157,9 @@ datasets/
 
 tgbot/TOKEN.txt
 
-super_resolution/settings.py
+super_resolution/super_resolution/settings.py
+.super_resolution/super_resolution/settings.py
 
-.settings.py
+settings.py
+
+settings
