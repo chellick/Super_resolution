@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from .forms import SRImagesForm
 from .models import SRImages
 
@@ -25,4 +25,7 @@ def download_image(request):
         'form': form
     })
     
+
+def page_not_found(request, exception):
+    return HttpResponseNotFound('<h1> Page not found ;( <h1>')
     
