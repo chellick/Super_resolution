@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from .forms import SRImagesForm
 from .models import SRImages
 from django.template.loader import render_to_string
 from django.shortcuts import render
+import os
+from django.conf import settings
 
 # Create your views here.
 
@@ -26,23 +28,25 @@ def about(request):
 
 
 def app(request):
-    return render(request, 'app.html')
+    if request.method == 'POST':
+        form = SRImagesForm(request.POST, request.FILES)
+        if form.is_valid():
+            old_images = SRImages.objects.all()
+            for image in old_images:
+                if os.path.exists(os.path.join(settings.MEDIA_ROOT, image.image.name)):
+                    os.remove(os.path.join(settings.MEDIA_ROOT, image.image.name))
+                image.delete()
+            
+            uploaded_image = form.save()
+            return JsonResponse({'image_url': uploaded_image.image.url})
+    else:
+        form = SRImagesForm()
+
+    images = SRImages.objects.all()
+    last_image = images.last() if images.exists() else None
+    return render(request, 'app.html', {'form': form, 'image': last_image})
 
 
-
-# def upload_image(request):
-#     form = SRImagesForm(request.POST, request.FILES)
-#     if form.is_valid():
-#         form.save()
-#         return redirect('upload_image/')
-#     return HttpResponse('None')
-
-
-# def download_image(request):
-#     form = SRImagesForm()
-#     return render(request, '', {    # TODO: template 
-#         'form': form
-#     })
     
 
 def page_not_found(request, exception):

@@ -6,8 +6,6 @@ from .models import SRImages
 class SRImagesForm(forms.ModelForm):
     class Meta:
         model = SRImages
-        fields = [
-            'image'
-        ]
+        fields = ['image']
     
     
