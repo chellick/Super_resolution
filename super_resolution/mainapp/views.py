@@ -7,27 +7,42 @@ from django.shortcuts import render
 
 # Create your views here.
 
+
+
 def index(request):
-    return render(request, 'index.html')
+    data = {
+        'title': 'Main page'
+    }
+    return render(request, 'index.html', context=data)
 
 
-def say_hello(request):
-    return HttpResponse('Hello pidor')
+
+def help(request):
+    return render(request, 'help.html')
 
 
-def upload_image(request):
-    form = SRImagesForm(request.POST, request.FILES)
-    if form.is_valid():
-        form.save()
-        return redirect('upload_image/')
-    return HttpResponse('None')
+def about(request):
+    return render(request, 'about.html')
 
 
-def download_image(request):
-    form = SRImagesForm()
-    return render(request, '', {    # TODO: template 
-        'form': form
-    })
+def app(request):
+    return render(request, 'app.html')
+
+
+
+# def upload_image(request):
+#     form = SRImagesForm(request.POST, request.FILES)
+#     if form.is_valid():
+#         form.save()
+#         return redirect('upload_image/')
+#     return HttpResponse('None')
+
+
+# def download_image(request):
+#     form = SRImagesForm()
+#     return render(request, '', {    # TODO: template 
+#         'form': form
+#     })
     
 
 def page_not_found(request, exception):
