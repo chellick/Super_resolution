@@ -52,11 +52,11 @@ def app(request):
             uploaded_image = form.save()
             imgname, img_lq = predict.get_image(settings.MEDIA_ROOT + '\images\\' + str(request.FILES['image']).replace(' ', '_'))
             output = predict.predict(imgname, img_lq)
-            # print('done', settings.MEDIA_ROOT + f'\images\{imgname}_sr.jpg', output)
-            cv2.imwrite(settings.MEDIA_ROOT + f'\images\{imgname}_sr.jpg', output)
+            print('done', settings.MEDIA_URL + f'images/{imgname}_sr.jpg')
+            cv2.imwrite(settings.MEDIA_URL + f'images/{imgname}_sr.jpg')
             
             
-            return JsonResponse({'image_url': settings.MEDIA_ROOT + f'\images\{imgname}_sr.jpg'})
+            return JsonResponse({'image_url': settings.MEDIA_URL + f'images/{imgname}_sr.jpg'})
         
     else:
         form = SRImagesForm()
