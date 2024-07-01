@@ -1,4 +1,4 @@
-# Исследование моделей суперразрешения
+# Super Resolution web-service
 
 |Developer|Contacts|
 |---------|--------|
