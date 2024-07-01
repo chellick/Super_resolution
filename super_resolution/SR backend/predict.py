@@ -8,7 +8,7 @@ import numpy as np
 
 
 MODEL_PATH = 'super_resolution/SR backend/model_zoo/Swin2SR_CompressedSR_X4_48.pth'
-TASK = 'classical_sr'
+TASK = 'compressed_sr'
 TRAINING_PATCH_SIZE = 48
 SCALE = 4
 INPUTS = 'super_resolution/media/images/inputs'
@@ -18,16 +18,16 @@ window_size = 8
 
 
 # TODO: define parameters method (mb user)
+# TODO: rewrite this shit
 
 def define_model(task, training_patch_size, model_path):
-    model = net(scale=4, in_chans=3, img_size=48, window_size=8,
+    model = net(upscale=4, in_chans=3, img_size=48, window_size=8,
                 img_range=1., depths=[6, 6, 6, 6, 6, 6], embed_dim=180, num_heads=[6, 6, 6, 6, 6, 6],
-                mlp_ratio=2, upsampler='pixelshuffle', resi_connection='1conv')
-    # param_key_g = 'params'
+                mlp_ratio=2, upsampler='pixelshuffle_aux', resi_connection='1conv')
+    param_key_g = 'params'  
 
 
     pretrained_model = torch.load(model_path)
-    print(pretrained_model.__dict__)
     model.load_state_dict(pretrained_model, strict=True)
 
     return model
@@ -61,6 +61,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = define_model(TASK, TRAINING_PATCH_SIZE, MODEL_PATH)
 model.eval()
 model = model.to(device)
+print(model)
 
 
 # for idx, path in enumerate(sorted(glob.glob(os.path.join(INPUTS, '*')))):
