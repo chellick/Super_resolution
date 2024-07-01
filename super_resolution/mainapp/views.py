@@ -46,14 +46,14 @@ def app(request):
         
         if form.is_valid():
 
-
+            # TODO ui
             print(settings.MEDIA_ROOT + '\images\\' + str(request.FILES['image']).replace(' ', '_')) 
             
             uploaded_image = form.save()
             imgname, img_lq = predict.get_image(settings.MEDIA_ROOT + '\images\\' + str(request.FILES['image']).replace(' ', '_'))
             output = predict.predict(imgname, img_lq)
             print('done', settings.MEDIA_URL + f'images/{imgname}_sr.jpg')
-            cv2.imwrite(settings.MEDIA_URL + f'images/{imgname}_sr.jpg')
+            cv2.imwrite(settings.MEDIA_URL + f'images/{imgname}_sr.jpg', output)
             
             
             return JsonResponse({'image_url': settings.MEDIA_URL + f'images/{imgname}_sr.jpg'})
