@@ -30,7 +30,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('help/', views.help, name='help'),
     
-    
 ]
 
 if settings.DEBUG:

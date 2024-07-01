@@ -9,11 +9,16 @@ from django.conf import settings
 
 # Create your views here.
 
-
+menu = [
+    {'title' : 'App', 'url_name': 'app'},
+    {'title' : 'About', 'url_name': 'about'},
+    {'title' : 'Help', 'url_name': 'help'},
+]
 
 def index(request):
     data = {
-        'title': 'Main page'
+        'title': 'Main Page',
+        'menu': menu,
     }
     return render(request, 'index.html', context=data)
 
@@ -30,15 +35,17 @@ def about(request):
 def app(request):
     if request.method == 'POST':
         form = SRImagesForm(request.POST, request.FILES)
+        print(request.FILES)
         if form.is_valid():
             old_images = SRImages.objects.all()
             for image in old_images:
                 if os.path.exists(os.path.join(settings.MEDIA_ROOT, image.image.name)):
                     os.remove(os.path.join(settings.MEDIA_ROOT, image.image.name))
                 image.delete()
-            
+            # TODO: model output
             uploaded_image = form.save()
             return JsonResponse({'image_url': uploaded_image.image.url})
+        
     else:
         form = SRImagesForm()
 
