@@ -6,6 +6,9 @@ from django.template.loader import render_to_string
 from django.shortcuts import render
 import os
 from django.conf import settings
+import cv2
+from SR_backend import predict
+
 
 # Create your views here.
 
@@ -35,16 +38,25 @@ def about(request):
 def app(request):
     if request.method == 'POST':
         form = SRImagesForm(request.POST, request.FILES)
-        print(request.FILES)
-        if form.is_valid():
-            old_images = SRImages.objects.all()
-            for image in old_images:
+        old_images = SRImages.objects.all()
+        for image in old_images:
                 if os.path.exists(os.path.join(settings.MEDIA_ROOT, image.image.name)):
                     os.remove(os.path.join(settings.MEDIA_ROOT, image.image.name))
                 image.delete()
-            # TODO: model output
+        
+        if form.is_valid():
+
+
+            print(settings.MEDIA_ROOT + '\images\\' + str(request.FILES['image']).replace(' ', '_')) 
+            
             uploaded_image = form.save()
-            return JsonResponse({'image_url': uploaded_image.image.url})
+            imgname, img_lq = predict.get_image(settings.MEDIA_ROOT + '\images\\' + str(request.FILES['image']).replace(' ', '_'))
+            output = predict.predict(imgname, img_lq)
+            # print('done', settings.MEDIA_ROOT + f'\images\{imgname}_sr.jpg', output)
+            cv2.imwrite(settings.MEDIA_ROOT + f'\images\{imgname}_sr.jpg', output)
+            
+            
+            return JsonResponse({'image_url': settings.MEDIA_ROOT + f'\images\{imgname}_sr.jpg'})
         
     else:
         form = SRImagesForm()
