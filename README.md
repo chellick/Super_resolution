@@ -41,3 +41,9 @@ py manage.py runserver
 ```
 
 3. Visit _<http://127.0.0.1:8000/index>_
+
+
+________________________
+
+
+Huge thanks to [SWIN2SR](https://github.com/mv-lab/swin2sr) developers. Used [pretrained model](https://github.com/mv-lab/swin2sr/releases)
