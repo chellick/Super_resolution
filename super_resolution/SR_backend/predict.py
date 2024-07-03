@@ -40,7 +40,7 @@ def get_image(path):
     (imgname, imgext) = os.path.splitext(os.path.basename(path))
     img_lq = cv2.imread(path, cv2.IMREAD_COLOR).astype(np.float32) / 255.            
    
-    return imgname, img_lq
+    return imgname, img_lq, imgext
 
 
 def predict(imgname, img_lq):

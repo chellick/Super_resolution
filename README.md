@@ -45,3 +45,4 @@ py manage.py runserver
 ________________________
 
 Huge thanks to [SWIN2SR](https://github.com/mv-lab/swin2sr) developers. Used [pretrained model](https://github.com/mv-lab/swin2sr/releases)
+

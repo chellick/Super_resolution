@@ -10,6 +10,7 @@ import cv2
 from SR_backend import predict
 
 
+
 # Create your views here.
 
 menu = [
@@ -40,23 +41,29 @@ def app(request):
         form = SRImagesForm(request.POST, request.FILES)
         old_images = SRImages.objects.all()
         for image in old_images:
-                if os.path.exists(os.path.join(settings.MEDIA_ROOT, image.image.name)):
-                    os.remove(os.path.join(settings.MEDIA_ROOT, image.image.name))
-                image.delete()
+            # print(os.path.join(settings.MEDIA_ROOT, image.image.name))
+            if os.path.exists(os.path.join(settings.MEDIA_ROOT, image.image.name)):
+                os.remove(os.path.join(settings.MEDIA_ROOT, image.image.name))
+            image.delete()
         
         if form.is_valid():
 
             # TODO ui
-            print(settings.MEDIA_ROOT + '\images\\' + str(request.FILES['image']).replace(' ', '_')) 
+            # print(settings.MEDIA_ROOT + '\images\\' + str(request.FILES['image']).replace(' ', '_')) 
             
             uploaded_image = form.save()
-            imgname, img_lq = predict.get_image(settings.MEDIA_ROOT + '\images\\' + str(request.FILES['image']).replace(' ', '_'))
+            imgname, img_lq, imgext = predict.get_image(settings.MEDIA_ROOT + '\images\\' + str(request.FILES['image']).replace(' ', '_'))
             output = predict.predict(imgname, img_lq)
-            print('done', settings.MEDIA_URL + f'images/{imgname}_sr.jpg')
-            cv2.imwrite(settings.MEDIA_URL + f'images/{imgname}_sr.jpg', output)
+            output_directory = os.path.join(settings.MEDIA_URL, 'images')
+            # print(os.path.join(output_directory, f'{imgname}_sr{imgext}').replace('\\', '/'), type(output))
+            
+            cv2.imwrite(
+                f'media/images/{imgname}_sr{imgext}',
+                output
+                )
             
             
-            return JsonResponse({'image_url': settings.MEDIA_URL + f'images/{imgname}_sr.jpg'})
+            return JsonResponse({'image_url': os.path.join(output_directory, f'{imgname}_sr{imgext}').replace('\\', '/')})
         
     else:
         form = SRImagesForm()
