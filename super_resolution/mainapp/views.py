@@ -8,6 +8,7 @@ import os
 from django.conf import settings
 import cv2
 from SR_backend import predict
+from PIL import Image
 
 
 
@@ -47,24 +48,21 @@ def app(request):
             image.delete()
         
         if form.is_valid():
-
-            # TODO ui
-            # print(settings.MEDIA_ROOT + '\images\\' + str(request.FILES['image']).replace(' ', '_')) 
-            
             uploaded_image = form.save()
             imgname, img_lq, imgext = predict.get_image(settings.MEDIA_ROOT + '\images\\' + str(request.FILES['image']).replace(' ', '_'))
+            
             output = predict.predict(imgname, img_lq)
             output_directory = os.path.join(settings.MEDIA_URL, 'images')
             # print (os.path.join(output_directory, f'{imgname}_sr{imgext}').replace('\\', '/'), type(output))
+            # print(output)
             
+            # os.chdir('super_resolution/media/images/')
             cv2.imwrite(
-                f'media/images/{imgname}_sr{imgext}',
+                os.path.join('/code/super_resolution/media/images/', f'{imgname}_sr{imgext}'),
                 output
                 )
             
-            
-            return JsonResponse({'image_url': os.path.join(output_directory, f'{imgname}_sr{imgext}').replace('\\', '/')})
-        
+            return JsonResponse({'image_url': f'{settings.MEDIA_URL}/images/{imgname}_sr{imgext}'})
     else:
         form = SRImagesForm()
 
