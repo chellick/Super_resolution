@@ -55,7 +55,7 @@ def app(request):
             imgname, img_lq, imgext = predict.get_image(settings.MEDIA_ROOT + '\images\\' + str(request.FILES['image']).replace(' ', '_'))
             output = predict.predict(imgname, img_lq)
             output_directory = os.path.join(settings.MEDIA_URL, 'images')
-            # print(os.path.join(output_directory, f'{imgname}_sr{imgext}').replace('\\', '/'), type(output))
+            # print (os.path.join(output_directory, f'{imgname}_sr{imgext}').replace('\\', '/'), type(output))
             
             cv2.imwrite(
                 f'media/images/{imgname}_sr{imgext}',
