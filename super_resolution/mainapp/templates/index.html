@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Resolution Project</title>
+    {% load static %}  
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <p id="animated-heading"> Made By Chellick ©<img id="ava" width="300" height="300" src="{% static 'pics/alch.jpg' %}"> </p>
+    <div class="wrapper">
+        <div class="typing-demo">
+        Hi! I'm Chellick and this is demo of Super-Resolution web application
+        </div>
+    </div>
+
+    <nav>
+        <div class="links-row">
+            {% for m in menu%}
+            <div class = "links">
+                <a href="{% url m.url_name %}" class="example" >{{ m.title }} </a>
+            </div>
+            {% endfor %}
+        </div>
+    </nav>
+    <div class="urls">
+        <a href="https://github.com/chellick"> <img width="70" height="70" src="{% static 'pics/pic.svg' %}"></a>
+        <a href="https://vk.com/chellick1"> <img width="70" height="70" src="{% static 'pics/logo-vk.svg' %}"></a>
+        <a href="https://discord.gg/YbzAjF4VAq"> <img width="70" height="70" src="{% static 'pics/logo-ds.svg' %}"></a>
+    </div>
+</body>
+</html>

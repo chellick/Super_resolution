@@ -1,0 +1,164 @@
+  
+  /* MAIN */
+  /* main tags */
+
+  h1 {
+    color:aliceblue; 
+    font-family: Montserrat;
+    text-decoration: none;
+    text-align: left;
+  }
+
+  header {
+    color:aliceblue; 
+    font-family: Gotham;
+    text-decoration: none;
+    text-align: center;
+    font-size: 60px;
+    margin-top: 10%;
+
+  }
+
+  #animated-heading {
+    font-family: Gotham; font-style: Bold; 
+    animation: myAnim 1s ease-in 5s 1 normal forwards;
+    font-size: 60px;
+    text-align: center;
+    margin-top: 10%;
+    color: whitesmoke
+
+  }
+
+  a {
+    text-decoration: none;
+    color:rgb(187, 159, 68); 
+  }
+
+  p {
+    color:aliceblue; 
+    font-family: Montserrat;
+    /* text-align: center; */
+    text-decoration: none;
+  }
+
+  body {
+    text-align: center;
+    overflow:  auto;
+    background-color: #131313;
+  }
+
+    img {
+    padding: 50px;
+  }
+
+  /* MAIN anims */
+
+  @keyframes myAnim {
+    0% {
+      opacity: 1;
+    }
+  
+    100% {
+      opacity: 0;
+    }
+  }  
+
+  @keyframes typing {
+    from {
+      width: 0;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    to {
+      width: 49ch;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+      visibility: hidden;
+    }
+  
+    to {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+
+  /* div classes */
+
+  .typing-demo {
+    animation-name: typing;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+    animation-delay: 7s;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid;
+    opacity: 0; 
+    animation-fill-mode: forwards;
+    box-sizing: border-box;
+    font-family: Gotham;
+    font-size: 40px;
+    color: whitesmoke;
+    
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: -10%;
+
+  }
+  
+  #ava {
+    vertical-align: middle;
+  }
+
+  .urls {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .example {
+    position: absolute;
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation-name: appear;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+    animation-delay: 7s;
+    animation-fill-mode: forwards;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: background-image 0.9s ease;
+    opacity: 0;
+    color: rgb(250, 112, 0);
+    text-decoration: none;
+    box-sizing: border-box;
+    border: 1px solid rgb(250, 112, 0);
+}
+
+
+
+    .links { 
+    display: flex;
+    justify-content: center;
+  
+    color:whitesmoke; 
+    font-family: Gotham;
+    font-size: 30px;
+    margin-top: 5%;
+  }
+
+
+
