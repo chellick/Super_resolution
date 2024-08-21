@@ -7,12 +7,12 @@ import numpy as np
 
 
 
-MODEL_PATH = 'C:/python/GitHub/Super_resolution/super_resolution/SR_backend/model_zoo/Swin2SR_CompressedSR_X4_48.pth'
+MODEL_PATH = './super_resolution/SR_backend/model_zoo/Swin2SR_CompressedSR_X4_48.pth'
 TASK = 'compressed_sr'
 TRAINING_PATCH_SIZE = 48
 SCALE = 4
 INPUTS = 'super_resolution/media/images/inputs'
-testpath = os.path.join(INPUTS, 'baki_pose.jpg')
+# testpath = os.path.join(INPUTS, 'baki_pose.jpg')
 OUTPUTS = 'super_resolution/media/images/outputs/'
 window_size = 8
 
@@ -37,9 +37,14 @@ def define_model(task, training_patch_size, model_path):
 
 
 def get_image(path):
+    
+    path = path.replace("\\", "/")
     (imgname, imgext) = os.path.splitext(os.path.basename(path))
+    print(imgname, imgext)
+    
+    
     img_lq = cv2.imread(path, cv2.IMREAD_COLOR).astype(np.float32) / 255.            
-   
+    
     return imgname, img_lq, imgext
 
 
@@ -54,6 +59,7 @@ def predict(imgname, img_lq):
     img_lq = torch.from_numpy(img_lq).float().unsqueeze(0).to(device)  # CHW-RGB to NCHW-RGB
 
     with torch.no_grad():
+        
             # pad input image to be a multiple of window_size
             _, _, h_old, w_old = img_lq.size()
             h_pad = (h_old // window_size + 1) * window_size - h_old

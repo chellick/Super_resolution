@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: python super_resolution/manage.py runserver 0.0.0.0:8000
+    # command: ls
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+
